@@ -16,6 +16,7 @@ public class FoodOrderController {
     private final Order order = new Order();
     private final FoodOrderView view = new FoodOrderView();
     private boolean finishOrder = false;
+    private boolean finishInput = false;
 
     public void startOrder() {
         view.welcomeMessage();
@@ -47,13 +48,38 @@ public class FoodOrderController {
                 hitungMakanan(menu.get(inputUser - 1));
             } else {
                 switch (inputUser) {
-                    case 99 -> konfirmasiPembayaran();
+                    case 99 -> {
+                        if (order.getItems().isEmpty()) {
+                            view.errorInputZero();
+                        } else {
+                            konfirmasiPembayaran();
+                        }
+                    }
                     case 0 -> finishOrder = true;
                     default -> view.errorMessage();
                 }
             }
         } catch (InputMismatchException e) {
-            view.errorInputMessage();
+            finishInput = false;
+            salahInput();
+        }
+    }
+
+    private void salahInput() {
+        if (finishInput) {
+            finishInput = false;
+        } else {
+            while (true) {
+                view.errorInputMessage();
+                Scanner inpScanner = new Scanner(System.in);
+                String inputUser = inpScanner.next();
+                if (inputUser.equals("Y")) {
+                    finishInput = true;
+                    break;
+                } else if (inputUser.equals("N")) {
+                    System.exit(0);
+                }
+            }
         }
     }
 

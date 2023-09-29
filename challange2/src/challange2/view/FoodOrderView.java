@@ -79,7 +79,18 @@ public class FoodOrderView {
     }
 
     public void errorInputMessage() {
-        System.out.println("Input tidak valid. Masukkan nomor pilihan yang benar.\n");
+        System.out.println(challange2.utils.Utils.SEPARATOR);
+        System.out.println("Mohon masukkan input\nPilihan anda");
+        System.out.println(challange2.utils.Utils.SEPARATOR);
+        System.out.println("(Y) untuk lanjut");
+        System.out.println("(N) untuk keluar");
+        System.out.print("=>");
+    }
+
+    public void errorInputZero() {
+        System.out.println(challange2.utils.Utils.SEPARATOR);
+        System.out.println("Minimal 1 Jumlah\nPesanan!");
+        System.out.println(challange2.utils.Utils.SEPARATOR);
     }
 
 }
