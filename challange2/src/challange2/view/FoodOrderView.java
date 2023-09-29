@@ -16,7 +16,7 @@ public class FoodOrderView {
     public void printMenu(List<Menu> menu) {
         System.out.println("Silahkan pilih makanan :");
         for (int i = 0; i < menu.size(); i++) {
-            System.out.println((i + 1) + ". " + menu.get(i).getNama() + Utils.TABLE + menu.get(i).getHarga());
+            System.out.println((i + 1) +  ". " + menu.get(i).getNama() + Utils.TABLE + menu.get(i).getHarga());
         }
         System.out.println("99. Pesan dan Bayar");
         System.out.println("0. Keluar Aplikasi");
@@ -29,7 +29,7 @@ public class FoodOrderView {
         System.out.println(challange2.utils.Utils.SEPARATOR);
 
         for (Menu menu : order) {
-            System.out.println(menu.getNama() + Utils.TABLE + menu.getJumlah() + Utils.TABLE + menu.getHarga());
+            System.out.println(menu.getNama() + Utils.TABLE + menu.getJumlah() + Utils.TABLE + menu.getHarga() + Utils.TABLE + menu.getNote());
         }
     }
 
@@ -54,7 +54,7 @@ public class FoodOrderView {
         System.out.println("1. Konfirmasi dan Bayar");
         System.out.println("2. Kembali ke menu utama");
         System.out.println("0. Keluar aplikasi");
-        System.out.print("=>");
+        System.out.print("=> ");
     }
 
     public void invoicePayment() {
@@ -71,12 +71,16 @@ public class FoodOrderView {
 
         System.out.println(makanan.getNama() + "\t|\t" + makanan.getHarga());
         System.out.println("(input 0 untuk kembali)");
-        System.out.print("qty =>");
+        System.out.print("qty => ");
     }
 
-    public void errorMessage() {
-        System.out.println("=== Pilihan Anda Salah ! ===\n");
+    public void catatanOrder() {
+        System.out.println(challange2.utils.Utils.SEPARATOR);
+        System.out.println("Catatan Order");
+        System.out.println(challange2.utils.Utils.SEPARATOR);
+        System.out.print("=> ");
     }
+
 
     public void errorInputMessage() {
         System.out.println(challange2.utils.Utils.SEPARATOR);
@@ -84,7 +88,7 @@ public class FoodOrderView {
         System.out.println(challange2.utils.Utils.SEPARATOR);
         System.out.println("(Y) untuk lanjut");
         System.out.println("(N) untuk keluar");
-        System.out.print("=>");
+        System.out.print("=> ");
     }
 
     public void errorInputZero() {

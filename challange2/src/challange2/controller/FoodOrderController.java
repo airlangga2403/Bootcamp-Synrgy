@@ -1,4 +1,5 @@
 package challange2.controller;
+
 import challange2.model.Menu;
 import challange2.model.Order;
 import challange2.service.SaveBilling;
@@ -80,23 +81,25 @@ public class FoodOrderController {
     }
 
     private void hitungMakanan(Menu makanan) {
-        view.hitungMakanView(makanan);
         try {
+            view.hitungMakanView(makanan);
             int qtyInputUser = inpScanner.nextInt();
-
+            view.catatanOrder();
+            String noteInputUser= inpScanner.next();
             if (qtyInputUser > 0) {
                 boolean found = false;
                 for (Menu order : order.getItems()) {
                     if (order.getNama().equals(makanan.getNama())) {
                         order.setJumlah(order.getJumlah() + qtyInputUser);
                         order.setHarga(order.getHarga() + (qtyInputUser * makanan.getHarga()));
+                        order.setNote(noteInputUser);
                         found = true;
                         break;
                     }
                 }
 
                 if (!found) {
-                    order.addItem(new Menu(makanan.getNama(), qtyInputUser, qtyInputUser * makanan.getHarga()));
+                    order.addItem(new Menu(makanan.getNama(), qtyInputUser, qtyInputUser * makanan.getHarga(), noteInputUser));
                 }
             }
         } catch (InputMismatchException e) {
@@ -117,7 +120,6 @@ public class FoodOrderController {
         view.choice();
         try {
             int inputUser = inpScanner.nextInt();
-
             if (inputUser == 1) {
                 invoicePayment();
             } else if (inputUser == 2) {

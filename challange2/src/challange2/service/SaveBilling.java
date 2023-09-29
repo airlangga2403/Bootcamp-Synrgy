@@ -25,7 +25,7 @@ public class SaveBilling {
             writer.write("Dibawah ini adalah pesanan anda:\n\n");
 
             for (Menu menu : orderItems) {
-                writer.write(menu.getNama() + "\t" + menu.getJumlah() + "\t" + menu.getHarga() + "\n");
+                writer.write(menu.getNama() + "\t" + menu.getJumlah() + "\t" + menu.getHarga() + "\t" + menu.getNote() + "\n");
             }
 
             int totalQty = 0;
