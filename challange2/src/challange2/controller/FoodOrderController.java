@@ -1,5 +1,4 @@
 package challange2.controller;
-
 import challange2.model.Menu;
 import challange2.model.Order;
 import challange2.service.SaveBilling;
@@ -17,6 +16,7 @@ public class FoodOrderController {
     private final FoodOrderView view = new FoodOrderView();
     private boolean finishOrder = false;
     private boolean finishInput = false;
+    private static final Scanner inpScanner = new Scanner(System.in);
 
     public void startOrder() {
         view.welcomeMessage();
@@ -41,22 +41,19 @@ public class FoodOrderController {
 
     private void pilihMakanan() {
         try {
-            Scanner inpScanner = new Scanner(System.in);
             int inputUser = inpScanner.nextInt();
 
             if (inputUser > 0 && inputUser <= menu.size()) {
                 hitungMakanan(menu.get(inputUser - 1));
             } else {
-                switch (inputUser) {
-                    case 99 -> {
-                        if (order.getItems().isEmpty()) {
-                            view.errorInputZero();
-                        } else {
-                            konfirmasiPembayaran();
-                        }
+                if (inputUser == 99) {
+                    if (order.getItems().isEmpty()) {
+                        view.errorInputZero();
+                    } else {
+                        konfirmasiPembayaran();
                     }
-                    case 0 -> finishOrder = true;
-                    default -> view.errorMessage();
+                } else if (inputUser == 0) {
+                    finishOrder = true;
                 }
             }
         } catch (InputMismatchException e) {
@@ -71,7 +68,6 @@ public class FoodOrderController {
         } else {
             while (true) {
                 view.errorInputMessage();
-                Scanner inpScanner = new Scanner(System.in);
                 String inputUser = inpScanner.next();
                 if (inputUser.equals("Y")) {
                     finishInput = true;
@@ -86,7 +82,6 @@ public class FoodOrderController {
     private void hitungMakanan(Menu makanan) {
         view.hitungMakanView(makanan);
         try {
-            Scanner inpScanner = new Scanner(System.in);
             int qtyInputUser = inpScanner.nextInt();
 
             if (qtyInputUser > 0) {
@@ -105,7 +100,8 @@ public class FoodOrderController {
                 }
             }
         } catch (InputMismatchException e) {
-            view.errorInputMessage();
+            finishInput = false;
+            salahInput();
         }
     }
 
@@ -120,36 +116,29 @@ public class FoodOrderController {
         view.paymentOptions();
         view.choice();
         try {
-            Scanner inpScanner = new Scanner(System.in);
             int inputUser = inpScanner.nextInt();
 
-            switch (inputUser) {
-                case 1 -> invoicePayment();
-                case 2 -> {
-                    finishOrder = false;
-                    displayMenu();
-                    pilihMakanan();
-                }
-                case 0 -> System.exit(0);
-                default -> view.errorMessage();
+            if (inputUser == 1) {
+                invoicePayment();
+            } else if (inputUser == 2) {
+                finishOrder = false;
+                displayMenu();
+                pilihMakanan();
+            } else if (inputUser == 0) {
+                System.exit(0);
             }
         } catch (InputMismatchException e) {
-            view.errorInputMessage();
+            finishInput = false;
+            salahInput();
         }
-
     }
 
     private void invoicePayment() {
         view.invoicePayment();
-
         view.thankYouMessage();
-
         view.orderSummary(order.getItems());
-
         view.paymentOptions();
-
         SaveBilling.saveOrderToFile(order.getItems());
-
         System.exit(0);
     }
 }
