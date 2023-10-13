@@ -1,4 +1,4 @@
-package challange2;
+package main.java.org;
 
 import challange2.controller.FoodOrderController;
 

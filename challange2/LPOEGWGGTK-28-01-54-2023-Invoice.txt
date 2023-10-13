@@ -1,0 +1,17 @@
+===========================
+BinarFud
+===========================
+Terima kasih sudah memesan
+di BinarFud
+
+Dibawah ini adalah pesanan anda:
+
+Nasi Goreng	1	15000.0	Pedas
+Mie Goreng	1	13000.0	pedas
+-----------------------------+
+Total 	2	28000
+Pembayaran : BinarCash
+===========================
+Simpan struk ini sebagai
+bukti pembayaran
+===========================

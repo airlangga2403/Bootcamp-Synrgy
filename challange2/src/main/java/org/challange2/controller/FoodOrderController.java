@@ -97,7 +97,6 @@ public class FoodOrderController {
                         break;
                     }
                 }
-
                 if (!found) {
                     order.addItem(new Menu(makanan.getNama(), qtyInputUser, qtyInputUser * makanan.getHarga(), noteInputUser));
                 }
@@ -108,16 +107,24 @@ public class FoodOrderController {
         }
     }
 
+    // Penerapan Strea
     private void konfirmasiPembayaran() {
         view.orderSummary(order.getItems());
-        double total = order.calculateTotal();
-        int totalQty = 0;
-        for (Menu menu : order.getItems()) {
-            totalQty += menu.getJumlah();
-        }
+
+        // Menggunakan Java Stream untuk menghitung total jumlah
+        int totalQty = order.getItems().stream()
+                .mapToInt(Menu::getJumlah)
+                .sum();
+
+        // Menggunakan Java Stream untuk menghitung total harga
+        double total = order.getItems().stream()
+                .mapToDouble(menu -> menu.getJumlah() * menu.getHarga())
+                .sum();
+
         view.totalAmount(totalQty, total);
         view.paymentOptions();
         view.choice();
+
         try {
             int inputUser = inpScanner.nextInt();
             if (inputUser == 1) {
