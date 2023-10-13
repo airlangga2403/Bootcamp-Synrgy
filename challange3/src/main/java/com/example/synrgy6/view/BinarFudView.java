@@ -40,6 +40,21 @@ public class BinarFudView {
     }
 
 
+    public void userNotFound() {
+        System.out.println("User not found");
+    }
+
+    public void passwordBenar() {
+        System.out.println("Password Benar");
+    }
+    public void passwordSalah() {
+        System.out.println("Password Salah ! ");
+        System.out.println("99. Login Lagi");
+
+    }
+
+
+
 //    public void printMenu(List<Menu> menu) {
 //        System.out.println("Silahkan pilih makanan :");
 //        for (int i = 0; i < menu.size(); i++) {

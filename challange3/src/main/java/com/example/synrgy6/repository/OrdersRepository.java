@@ -1,10 +1,9 @@
 package com.example.synrgy6.repository;
 
-import com.example.synrgy6.model.Users;
+import com.example.synrgy6.model.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, Long> {
-    Users findByUsername(String username);
+public interface OrdersRepository extends JpaRepository<Orders, Long> {
 }

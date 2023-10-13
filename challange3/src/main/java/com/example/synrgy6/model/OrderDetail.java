@@ -24,13 +24,13 @@ public class OrderDetail {
     @Column(name = "quantity")
     private Integer quantity;
 
-//    @ManyToOne
-//    @JoinColumn(name = "order_id", referencedColumnName = "id")
-//    private Orders orders;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "product_id", referencedColumnName = "id")
-//    private Products products;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Orders orders;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Products products;
 
 
 }

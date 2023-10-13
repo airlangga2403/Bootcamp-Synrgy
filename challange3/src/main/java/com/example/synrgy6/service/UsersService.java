@@ -15,8 +15,12 @@ public class UsersService {
         return usersRepository.save(users);
     }
 
-    public void deleteAll() {
-        usersRepository.deleteAll();
+//    public void deleteAll() {
+//        usersRepository.deleteAll();
+//    }
+
+    public Users findbyUsername(String users) {
+        return usersRepository.findByUsername(users);
     }
 
 

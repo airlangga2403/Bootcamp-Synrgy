@@ -2,6 +2,7 @@ package com.example.synrgy6.controller;
 
 import com.example.synrgy6.model.Users;
 import com.example.synrgy6.service.UsersService;
+import com.example.synrgy6.utils.Utils;
 import com.example.synrgy6.view.BinarFudView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,6 @@ public class UsersController  {
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
-
-
 
     public void add(Users users) {
         usersService.saveUsers(users);
@@ -50,7 +49,9 @@ public class UsersController  {
 
         Users users = new Users(inpUsername, inputEmail, inpPass);
         usersService.saveUsers(users);
-        loginUser();
+        while (true){
+            loginUser();
+        }
 
     }
 
@@ -60,8 +61,34 @@ public class UsersController  {
         String inpUsername = inpScanner.next();
         view.inputPassword();
         String inpPass = inpScanner.next();
-//        Users users = new Users(inpUsername, inputEmail, inpPass);
-        // Code to get If same ?
+        Users getUsers = usersService.findbyUsername(inpUsername);
+
+        if (getUsers == null) {
+            view.userNotFound();
+            return;
+        }
+
+        while (true) {
+            if (inpPass.equals(getUsers.getPassword())) {
+                System.out.println(Utils.SEPARATOR);
+                view.passwordBenar();
+                System.out.println(Utils.SEPARATOR);
+                break; // Password is correct, exit the loop
+            } else {
+               view.passwordSalah();
+                int intChoice = inpScanner.nextInt();
+                if (intChoice == 99) {
+                    break; // User chooses to exit
+                } else {
+                    System.exit(0); // Exit the application
+                }
+            }
+        }
     }
+
+    public void processOrder() {
+
+    }
+
 
 }

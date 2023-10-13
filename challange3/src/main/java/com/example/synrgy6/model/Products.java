@@ -22,11 +22,11 @@ public class Products {
     @Column(name = "price")
     private Double price;
 
-//    @Column(name = "merchant_id")
-//    private Long merchantId;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
-//    private Merchants merchant;
+    @Column(name = "merchant_id", insertable = false, updatable = false)
+    private Long merchantId;
+
+    @ManyToOne
+    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
+    private Merchants merchant;
 
 }
