@@ -1,5 +1,6 @@
 package com.example.synrgy6;
 
+import com.example.synrgy6.controller.MerchantController;
 import com.example.synrgy6.controller.UsersController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,12 +13,13 @@ public class Synrgy6Application implements CommandLineRunner {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Synrgy6Application.class, args);
         UsersController usersController = context.getBean(UsersController.class);
-
+        MerchantController merchantController = context.getBean(MerchantController.class);
+        merchantController.initProduct();
         usersController.welcomeUser();
 
 
-
     }
+
     @Override
     public void run(String... args) throws Exception {
         // Code to be executed when the application starts

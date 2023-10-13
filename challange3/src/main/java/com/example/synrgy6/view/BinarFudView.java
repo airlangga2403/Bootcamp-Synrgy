@@ -1,7 +1,10 @@
 package com.example.synrgy6.view;
 
+import com.example.synrgy6.model.Products;
 import com.example.synrgy6.utils.Utils;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BinarFudView {
@@ -47,6 +50,7 @@ public class BinarFudView {
     public void passwordBenar() {
         System.out.println("Password Benar");
     }
+
     public void passwordSalah() {
         System.out.println("Password Salah ! ");
         System.out.println("99. Login Lagi");
@@ -54,16 +58,15 @@ public class BinarFudView {
     }
 
 
-
-//    public void printMenu(List<Menu> menu) {
-//        System.out.println("Silahkan pilih makanan :");
-//        for (int i = 0; i < menu.size(); i++) {
-//            System.out.println((i + 1) + ". " + menu.get(i).getNama() + Utils.TABLE + menu.get(i).getHarga());
-//        }
-//        System.out.println("99. Pesan dan Bayar");
-//        System.out.println("0. Keluar Aplikasi");
-//        System.out.print("=> ");
-//    }
+    public void printMenu(List<Products> menu) {
+        System.out.println("Silahkan pilih makanan :");
+        for (int i = 0; i < menu.size(); i++) {
+            System.out.println((i + 1) + ". " + menu.get(i).getProductName() + Utils.TABLE + menu.get(i).getPrice());
+        }
+        System.out.println("99. Pesan dan Bayar");
+        System.out.println("0. Keluar Aplikasi");
+        System.out.print("=> ");
+    }
 //
 //    public void orderSummary(List<Menu> order) {
 //        System.out.println(Utils.SEPARATOR);
