@@ -21,7 +21,7 @@ public class MerchantController {
     }
 
     public void initProduct() {
-        addProduct("Ronaldo", "Bandung", true);
+        addProduct("Mang Asep", "Bandung", true);
     }
 
     private void addProduct(String merchantName, String merchantLocation, Boolean open) {

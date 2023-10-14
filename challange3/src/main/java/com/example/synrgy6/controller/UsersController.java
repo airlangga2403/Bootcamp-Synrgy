@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import java.util.Scanner;
 
 @Controller
-public class UsersController  {
+public class UsersController {
 
     private final UsersService usersService;
 
@@ -49,7 +49,7 @@ public class UsersController  {
 
         Users users = new Users(inpUsername, inputEmail, inpPass);
         usersService.saveUsers(users);
-        while (true){
+        while (true) {
             loginUser();
         }
 
@@ -65,23 +65,21 @@ public class UsersController  {
 
         if (getUsers == null) {
             view.userNotFound();
+            loginUser();
             return;
         }
 
-        while (true) {
-            if (inpPass.equals(getUsers.getPassword())) {
-                System.out.println(Utils.SEPARATOR);
-                view.passwordBenar();
-                System.out.println(Utils.SEPARATOR);
-                break; // Password is correct, exit the loop
+        if (inpPass.equals(getUsers.getPassword()) && getUsers != null) {
+            System.out.println(Utils.SEPARATOR);
+            view.passwordBenar();
+            System.out.println(Utils.SEPARATOR);
+        } else {
+            view.passwordSalah();
+            int intChoice = inpScanner.nextInt();
+            if (intChoice == 99) {
+                loginUser();
             } else {
-               view.passwordSalah();
-                int intChoice = inpScanner.nextInt();
-                if (intChoice == 99) {
-                    break; // User chooses to exit
-                } else {
-                    System.exit(0); // Exit the application
-                }
+                System.exit(0); // Exit the application
             }
         }
     }

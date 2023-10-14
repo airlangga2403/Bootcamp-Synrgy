@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.antlr.v4.runtime.misc.NotNull;
 
 @Getter
 @Setter
@@ -22,11 +23,7 @@ public class Products {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "merchant_id", insertable = false, updatable = false)
-    private Long merchantId;
-
     @ManyToOne
     @JoinColumn(name = "merchant_id", referencedColumnName = "id")
     private Merchants merchant;
-
 }

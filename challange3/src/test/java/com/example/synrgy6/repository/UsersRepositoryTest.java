@@ -20,7 +20,7 @@ class UsersRepositoryTest {
     @Test
     public void testCreateUser() {
         String randomString = Utils.generateRandomString();
-        Users users = new Users("airlanggaxxx" + randomString, "airlanggaemailamantap@gmail.com","12345");
+        Users users = new Users("airlanggaxxxx" + randomString, "airlanggaemailamantaxp@gmail.com","12345");
         Users savedUser = usersRepository.save(users);
         assertThat(savedUser).isNotNull();
     }

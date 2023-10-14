@@ -24,6 +24,9 @@ public class OrderDetail {
     @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name = "total_price")
+    private Integer totalPrice;
+
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Orders orders;

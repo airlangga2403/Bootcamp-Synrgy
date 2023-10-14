@@ -1,6 +1,8 @@
 package com.example.synrgy6;
 
 import com.example.synrgy6.controller.MerchantController;
+import com.example.synrgy6.controller.OrdersController;
+import com.example.synrgy6.controller.ProductController;
 import com.example.synrgy6.controller.UsersController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +16,13 @@ public class Synrgy6Application implements CommandLineRunner {
         ConfigurableApplicationContext context = SpringApplication.run(Synrgy6Application.class, args);
         UsersController usersController = context.getBean(UsersController.class);
         MerchantController merchantController = context.getBean(MerchantController.class);
-        merchantController.initProduct();
-        usersController.welcomeUser();
+        ProductController productController = context.getBean(ProductController.class);
+        OrdersController ordersController = context.getBean(OrdersController.class);
 
+//        merchantController.initProduct();
+//        productController.initProduct();
+        usersController.welcomeUser();
+        ordersController.addOrder();
 
     }
 

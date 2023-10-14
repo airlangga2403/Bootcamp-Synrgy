@@ -1,9 +1,11 @@
 package com.example.synrgy6.view;
 
+import com.example.synrgy6.model.OrderDetail;
 import com.example.synrgy6.model.Products;
 import com.example.synrgy6.utils.Utils;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -54,6 +56,7 @@ public class BinarFudView {
     public void passwordSalah() {
         System.out.println("Password Salah ! ");
         System.out.println("99. Login Lagi");
+        System.out.print("=> ");
 
     }
 
@@ -63,20 +66,49 @@ public class BinarFudView {
         for (int i = 0; i < menu.size(); i++) {
             System.out.println((i + 1) + ". " + menu.get(i).getProductName() + Utils.TABLE + menu.get(i).getPrice());
         }
+        System.out.print("=> ");
+    }
+
+    public void choiceMenu() {
+        System.out.println("88. Order Lagi");
         System.out.println("99. Pesan dan Bayar");
         System.out.println("0. Keluar Aplikasi");
         System.out.print("=> ");
     }
-//
-//    public void orderSummary(List<Menu> order) {
-//        System.out.println(Utils.SEPARATOR);
-//        System.out.println("Konfirmasi & Pembayaran");
-//        System.out.println(Utils.SEPARATOR);
-//
-//        for (Menu menu : order) {
-//            System.out.println(menu.getNama() + Utils.TABLE + menu.getJumlah() + Utils.TABLE + menu.getHarga() + Utils.TABLE + menu.getNote());
-//        }
-//    }
+
+    public void inputUserAddress() {
+        System.out.println("Silahkan Masukkan Alamat Anda : ");
+        System.out.print("=> ");
+    }
+
+    public void inputQuantity() {
+        System.out.println("Ingin Pesan Berapa ? :");
+        System.out.print("=>");
+    }
+
+    //
+    public void orderSummary(List<OrderDetail> orderDetails, ArrayList<Products> productsList) {
+        System.out.println(Utils.SEPARATOR);
+        System.out.println("Order Summary");
+        System.out.println(Utils.SEPARATOR);
+
+        System.out.println("Product Name" + Utils.TABLE + "Quantity");
+
+        for (int i = 0; i < orderDetails.size(); i++) {
+            OrderDetail orderDetail = orderDetails.get(i);
+            Products product = productsList.get(i); // Get the product from the list
+
+            if (product != null) {
+                String productName = product.getProductName(); // Get the product name
+                System.out.println(productName + Utils.TABLE +
+                        orderDetail.getQuantity() + Utils.TABLE + Utils.TABLE);
+            } else {
+                System.out.println("Product Name Unavailable" + Utils.TABLE +
+                        orderDetail.getQuantity() + Utils.TABLE + Utils.TABLE);
+            }
+        }
+    }
+
 
     public void totalAmount(int totalJumlah, double totalHarga) {
         System.out.println("-----------------------------+");
@@ -109,15 +141,6 @@ public class BinarFudView {
         System.out.println(Utils.SEPARATOR);
     }
 
-//    public void hitungMakanView(Menu makanan) {
-//        System.out.println(Utils.SEPARATOR);
-//        System.out.println("Berapa Pesanan anda");
-//        System.out.println(Utils.SEPARATOR);
-//
-//        System.out.println(makanan.getNama() + "\t|\t" + makanan.getHarga());
-//        System.out.println("(input 0 untuk kembali)");
-//        System.out.print("qty => ");
-//    }
 
     public void catatanOrder() {
         System.out.println(Utils.SEPARATOR);
