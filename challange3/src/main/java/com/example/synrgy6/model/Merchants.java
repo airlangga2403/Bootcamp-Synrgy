@@ -24,5 +24,7 @@ public class Merchants {
     @Column(name = "open")
     private Boolean open;
 
+    //    @OneToMany(mappedBy = "merchant")
+//    private List<Products> products;
 
 }
