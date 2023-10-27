@@ -6,10 +6,10 @@ import com.org.challange4.dto.merchant.response.AddMerchantResponseDTO;
 import com.org.challange4.dto.merchant.response.UpdateMerchantResponseDTO;
 import com.org.challange4.models.Merchants;
 import com.org.challange4.repository.MerchantRepository;
-import com.org.challange4.util.LongConverterUUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,28 +24,31 @@ public class MerchantService {
         return convertToResponseDTO(merchants, "Merchant added successfully");
     }
 
-    public UpdateMerchantResponseDTO updateMerchant(UUID id, UpdateMerchantRequestDTO updateMerchantRequestDTO) {
-        Optional<Merchants> merchants = merchantRepository.findById(id);
+    public UpdateMerchantResponseDTO updateMerchant(UUID uuid, UpdateMerchantRequestDTO updateMerchantRequestDTO) {
+        Optional<Merchants> merchants = merchantRepository.findById(uuid);
+
         if (merchants.isPresent()) {
             Merchants existingMerchant = merchants.get();
-
             existingMerchant.setMerchantName(updateMerchantRequestDTO.getMerchantName());
             existingMerchant.setMerchantLocation(updateMerchantRequestDTO.getMerchantLocation());
             existingMerchant.setOpen(updateMerchantRequestDTO.getOpen());
-
             Merchants updatedMerchant = merchantRepository.save(existingMerchant);
-
             return convertToResponseDTO(updatedMerchant);
         } else {
             return null;
         }
     }
 
+    public List<Merchants> getMerchantOpen() {
+        return merchantRepository.getOpenMerchants();
+    }
+
     private AddMerchantResponseDTO convertToResponseDTO(Merchants merchants, String message) {
         AddMerchantResponseDTO responseDTO = new AddMerchantResponseDTO();
-        responseDTO.setId(LongConverterUUID.convertLongToUUID(merchants.getId()));
+        responseDTO.setId(merchants.getId());
         responseDTO.setMerchantName(merchants.getMerchantName());
         responseDTO.setMerchantLocation(merchants.getMerchantLocation());
+        responseDTO.setMessage(message);
         return responseDTO;
     }
 
@@ -53,3 +56,4 @@ public class MerchantService {
         return new UpdateMerchantResponseDTO(merchant.getId(), merchant.getMerchantName(), merchant.getMerchantLocation(), merchant.getOpen());
     }
 }
+

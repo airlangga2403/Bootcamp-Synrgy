@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.UUID;
-
 @Getter
 @Setter
 public class UpdateMerchantResponseDTO {
@@ -13,8 +12,6 @@ public class UpdateMerchantResponseDTO {
     private String merchantLocation;
     private Boolean open;
 
-    public UpdateMerchantResponseDTO() {
-    }
 
     public UpdateMerchantResponseDTO(UUID id, String merchantName, String merchantLocation, Boolean open) {
         this.id = id;
@@ -23,14 +20,5 @@ public class UpdateMerchantResponseDTO {
         this.open = open;
     }
 
-    public UpdateMerchantResponseDTO(long id, String merchantName, String merchantLocation, Boolean open) {
-        this.id = convertLongToUUID(id);
-        this.merchantName = merchantName;
-        this.merchantLocation = merchantLocation;
-        this.open = open;
-    }
 
-    private UUID convertLongToUUID(long value) {
-        return new UUID(value, 0);
-    }
 }

@@ -14,13 +14,6 @@ public class AddMerchantResponseDTO {
     private String merchantLocation;
     private String message;
 
-    public AddMerchantResponseDTO(UUID id, String merchantName, String merchantLocation, String message) {
-        this.id = id;
-        this.merchantName = merchantName;
-        this.merchantLocation = merchantLocation;
-        this.message = message;
-    }
-
     public AddMerchantResponseDTO() {
 
     }

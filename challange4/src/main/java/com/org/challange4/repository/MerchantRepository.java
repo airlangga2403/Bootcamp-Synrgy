@@ -11,7 +11,7 @@ import java.util.UUID;
 @Repository
 public interface MerchantRepository extends JpaRepository<Merchants, UUID> {
 
-    @Query("SELECT m FROM Merchants m WHERE m.open = TRUE")
+    @Query("SELECT m FROM Merchants m WHERE m.open = true ")
     List<Merchants> getOpenMerchants();
 
 }

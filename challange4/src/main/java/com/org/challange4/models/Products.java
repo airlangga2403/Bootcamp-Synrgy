@@ -1,5 +1,6 @@
 package com.org.challange4.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Products {
 
     @ManyToOne
     @JoinColumn(name = "merchant_id")
+    @JsonIgnore
     private Merchants merchant;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

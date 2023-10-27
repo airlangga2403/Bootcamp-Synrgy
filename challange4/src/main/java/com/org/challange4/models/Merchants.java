@@ -1,12 +1,13 @@
 package com.org.challange4.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-
+import java.util.UUID;
 @Getter
 @Setter
 @Entity
@@ -15,7 +16,7 @@ import java.util.List;
 public class Merchants {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private UUID id;
 
     @Column(name = "merchant_name")
     private String merchantName;
@@ -38,6 +39,4 @@ public class Merchants {
         this.merchantLocation = merchantLocation;
         this.open = open;
     }
-
-
 }

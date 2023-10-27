@@ -1,5 +1,7 @@
 package com.org.challange4.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ public class OrderDetail {
     @Column(name = "total_price")
     private Double totalPrice;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Orders order;
