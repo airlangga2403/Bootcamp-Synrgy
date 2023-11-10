@@ -7,10 +7,13 @@ import com.binarfud.proplayer.challange5.dto.merchant.response.AddMerchantRespon
 import com.binarfud.proplayer.challange5.dto.merchant.response.ReportDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.UpdateMerchantResponseDTO;
 import com.binarfud.proplayer.challange5.models.Merchants;
+import com.binarfud.proplayer.challange5.services.InvoiceService;
 import com.binarfud.proplayer.challange5.services.MerchantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,9 @@ public class MerchantController {
 
     @Autowired
     private MerchantService merchantService;
+
+    @Autowired
+    private InvoiceService invoiceService;
 
     @PostMapping("/add")
     public AddMerchantResponseDTO addMerchant(@RequestBody AddMerchantRequestDTO requestDTO) {
@@ -80,6 +86,19 @@ public class MerchantController {
         } else {
             return new ResponseEntity<>(getReport, HttpStatus.OK);
         }
+    }
+
+    // Generate PDF
+    @GetMapping("/generate")
+    public ResponseEntity<byte[]> generatePdf() {
+        ReportDTO reportDTO = merchantService.getReport()/* Call your getReport method here */;
+        byte[] pdfBytes = invoiceService.generateReportingMerchant(reportDTO);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "invoice.pdf");
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
 
