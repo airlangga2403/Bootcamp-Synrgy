@@ -13,3 +13,7 @@ p
 @src/main/java/org/challange2/controller/FoodOrderController.java,4\1\4100cd2e7b777522493f53cbc0630ec545835f98
 e
 5src/main/java/org/challange2/service/SaveBilling.java,f\8\f8cc143021c130e5ad9c3417f267ed2ee12b0a11
+\
+,src/main/java/org/challange2/model/Menu.java,a\b\ab17c8a6fa07dcdd88059244c537e17fd913bc92
+]
+-src/main/java/org/challange2/model/Order.java,a\e\aed2b05b195729931300d028848203d78ade895d

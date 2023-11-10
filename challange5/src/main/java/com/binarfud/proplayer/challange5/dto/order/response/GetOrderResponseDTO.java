@@ -1,4 +1,4 @@
-package com.org.challange4.dto.order.response;
+package com.binarfud.proplayer.challange5.dto.order.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

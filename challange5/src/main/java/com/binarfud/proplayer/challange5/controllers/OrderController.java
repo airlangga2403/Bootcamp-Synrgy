@@ -1,9 +1,9 @@
-package com.org.challange4.controllers;
+package com.binarfud.proplayer.challange5.controllers;
 
-import com.org.challange4.dto.order.request.CreateOrderRequestDTO;
-import com.org.challange4.dto.order.response.CreateOrderResponseDTO;
-import com.org.challange4.dto.order.response.GetOrderResponseDTO;
-import com.org.challange4.services.OrderService;
+import com.binarfud.proplayer.challange5.dto.order.request.CreateOrderRequestDTO;
+import com.binarfud.proplayer.challange5.dto.order.response.CreateOrderResponseDTO;
+import com.binarfud.proplayer.challange5.dto.order.response.GetOrderResponseDTO;
+import com.binarfud.proplayer.challange5.services.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
-@RequestMapping("/orders")
+@RequestMapping("api/orders")
 public class OrderController {
 
     @Autowired

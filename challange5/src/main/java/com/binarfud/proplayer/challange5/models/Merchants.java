@@ -1,4 +1,4 @@
-package com.org.challange4.models;
+package com.binarfud.proplayer.challange5.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;

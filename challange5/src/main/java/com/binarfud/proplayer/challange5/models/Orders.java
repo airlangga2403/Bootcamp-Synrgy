@@ -1,5 +1,6 @@
-package com.org.challange4.models;
+package com.binarfud.proplayer.challange5.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Orders {
     private String destinationAddress;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private Users user;
 
@@ -36,5 +38,5 @@ public class Orders {
     @JsonManagedReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
-
 }
+

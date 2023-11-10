@@ -1,11 +1,14 @@
-package com.org.challange4.controllers;
+package com.binarfud.proplayer.challange5.controllers;
 
-import com.org.challange4.dto.merchant.request.AddMerchantRequestDTO;
-import com.org.challange4.dto.merchant.request.UpdateMerchantRequestDTO;
-import com.org.challange4.dto.merchant.response.AddMerchantResponseDTO;
-import com.org.challange4.dto.merchant.response.UpdateMerchantResponseDTO;
-import com.org.challange4.models.Merchants;
-import com.org.challange4.services.MerchantService;
+
+import com.binarfud.proplayer.challange5.dto.merchant.request.AddMerchantRequestDTO;
+import com.binarfud.proplayer.challange5.dto.merchant.request.UpdateMerchantRequestDTO;
+import com.binarfud.proplayer.challange5.dto.merchant.response.AddMerchantResponseDTO;
+import com.binarfud.proplayer.challange5.dto.merchant.response.ReportDTO;
+import com.binarfud.proplayer.challange5.dto.merchant.response.ReportWeekMonthDTO;
+import com.binarfud.proplayer.challange5.dto.merchant.response.UpdateMerchantResponseDTO;
+import com.binarfud.proplayer.challange5.models.Merchants;
+import com.binarfud.proplayer.challange5.services.MerchantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +23,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
-@RequestMapping("/merchant")
+@RequestMapping("api/merchant")
 public class MerchantController {
 
     @Autowired
@@ -64,4 +67,21 @@ public class MerchantController {
             return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         }
     }
+
+    // Get
+    @GetMapping("/report-merchant")
+    public ResponseEntity<?> getReportMerchant() {
+        ReportDTO getReport = merchantService.getReport();
+
+        if (getReport.getReported().isEmpty()) {
+            log.error("No open merchants found.");
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Tidak ada Merchant");
+            return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        } else {
+            return new ResponseEntity<>(getReport, HttpStatus.OK);
+        }
+    }
+
+
 }

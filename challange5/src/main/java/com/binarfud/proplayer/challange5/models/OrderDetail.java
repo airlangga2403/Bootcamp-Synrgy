@@ -1,4 +1,4 @@
-package com.org.challange4.models;
+package com.binarfud.proplayer.challange5.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

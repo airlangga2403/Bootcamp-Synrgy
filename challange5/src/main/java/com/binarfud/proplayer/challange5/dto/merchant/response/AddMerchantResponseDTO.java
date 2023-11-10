@@ -1,4 +1,4 @@
-package com.org.challange4.dto.merchant.response;
+package com.binarfud.proplayer.challange5.dto.merchant.response;
 
 import lombok.Getter;
 import lombok.Setter;
