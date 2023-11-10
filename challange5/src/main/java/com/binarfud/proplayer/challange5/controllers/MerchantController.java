@@ -5,7 +5,6 @@ import com.binarfud.proplayer.challange5.dto.merchant.request.AddMerchantRequest
 import com.binarfud.proplayer.challange5.dto.merchant.request.UpdateMerchantRequestDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.AddMerchantResponseDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.ReportDTO;
-import com.binarfud.proplayer.challange5.dto.merchant.response.ReportWeekMonthDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.UpdateMerchantResponseDTO;
 import com.binarfud.proplayer.challange5.models.Merchants;
 import com.binarfud.proplayer.challange5.services.MerchantService;

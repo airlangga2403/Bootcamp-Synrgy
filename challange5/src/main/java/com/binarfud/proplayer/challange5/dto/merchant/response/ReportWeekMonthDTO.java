@@ -2,7 +2,6 @@ package com.binarfud.proplayer.challange5.dto.merchant.response;
 
 
 import com.binarfud.proplayer.challange5.dto.order.response.OrderInfoDTO;
-import com.binarfud.proplayer.challange5.models.Orders;
 import lombok.Getter;
 import lombok.Setter;
 

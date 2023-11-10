@@ -3,7 +3,6 @@ package com.binarfud.proplayer.challange5.services;
 import com.binarfud.proplayer.challange5.dto.merchant.request.AddMerchantRequestDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.request.UpdateMerchantRequestDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.*;
-import com.binarfud.proplayer.challange5.dto.order.response.OrderInfoDTO;
 import com.binarfud.proplayer.challange5.models.Merchants;
 import com.binarfud.proplayer.challange5.models.Orders;
 import com.binarfud.proplayer.challange5.repository.MerchantRepository;
@@ -56,7 +55,7 @@ public class MerchantService {
             UUID orderId = (UUID) result[2];
             int weekNumber = ((BigDecimal) result[5]).intValue();
             int monthNumber = ((BigDecimal) result[6]).intValue();
-            double totalIncome = 2000000.0; // Set your total income here
+            double totalIncome = ((Double) result[7]);
 
             Optional<Orders> order = orderRepository.findById(orderId);
             if (order.isPresent()) {
