@@ -1,5 +1,6 @@
 package com.binarfud.proplayer.challange5.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +30,20 @@ public class Merchants {
     @OneToMany(mappedBy = "merchant", fetch = FetchType.EAGER)
     private List<Products> products;
 
-    public Merchants(String merchantName, String merchantLocation) {
-        this(merchantName, merchantLocation, false);
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
+
+    public Merchants(String merchantName, String merchantLocation, Users users) {
+        this(merchantName, merchantLocation, false, users);
     }
 
-    public Merchants(String merchantName, String merchantLocation, boolean open) {
+    public Merchants(String merchantName, String merchantLocation, boolean open, Users users) {
         this.merchantName = merchantName;
         this.merchantLocation = merchantLocation;
         this.open = open;
+        this.user = users;
     }
 }

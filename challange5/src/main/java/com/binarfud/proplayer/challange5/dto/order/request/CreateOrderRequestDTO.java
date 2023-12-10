@@ -19,8 +19,6 @@ public class CreateOrderRequestDTO {
     public static class OrderDetailDTO {
         private UUID productId;
         private Long quantity;
-        private Double totalPrice;
-
         @JsonIgnoreProperties("orderDetails")
         private Products product;
     }

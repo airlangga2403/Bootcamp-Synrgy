@@ -22,6 +22,7 @@ public class UsersService {
     private UserRepository userRepository;
 
     public UserRequestDTO registerUser(UserRequestDTO userDTO) {
+        // Check Is User Exist
         Optional<Users> user = userRepository.findByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword());
         if (user.isEmpty()) {
             Users newUser = new Users(userDTO.getUsername(), userDTO.getEmailAddress(), userDTO.getPassword());
@@ -70,7 +71,7 @@ public class UsersService {
         //order makanan.
     // }
     public List<UserResponseListDTO> getListUserOrderedFood() {
-        List<Users> usersWithOrders = userRepository.findByOrdersIsNotNull();
+        List<Users> usersWithOrders = userRepository.findAll();
 
         return usersWithOrders.stream()
                 .map(user -> new UserResponseListDTO(

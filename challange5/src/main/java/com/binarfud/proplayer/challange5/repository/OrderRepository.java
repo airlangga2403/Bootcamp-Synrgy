@@ -24,4 +24,7 @@ public interface OrderRepository extends JpaRepository<Orders, UUID> {
             "JOIN order_detail od ON o.id = od.order_id " +
             "ORDER BY o.order_time", nativeQuery = true)
     List<Object[]> findAllWithWeekAndMonthNumbers();
+
+    List<Orders> findByUserId(UUID userId);
+
 }

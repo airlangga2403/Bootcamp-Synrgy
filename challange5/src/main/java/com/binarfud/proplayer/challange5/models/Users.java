@@ -2,6 +2,7 @@ package com.binarfud.proplayer.challange5.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class Users {
 
@@ -33,11 +35,16 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private List<Orders> orders;
 
+    @OneToOne(mappedBy = "user")
+    private Merchants merchants;
+
     public Users(String username, String emailAddress, String password) {
         this.username = username;
         this.emailAddress = emailAddress;
         this.password = password;
     }
+
+
 
 
 }

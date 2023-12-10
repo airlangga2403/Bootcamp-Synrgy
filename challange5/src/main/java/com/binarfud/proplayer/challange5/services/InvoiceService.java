@@ -3,18 +3,63 @@ package com.binarfud.proplayer.challange5.services;
 import com.binarfud.proplayer.challange5.dto.merchant.response.OrderDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.ReportDTO;
 import com.binarfud.proplayer.challange5.dto.merchant.response.ReportItemDTO;
+import com.binarfud.proplayer.challange5.models.OrderDetail;
+import com.binarfud.proplayer.challange5.models.Orders;
+import com.binarfud.proplayer.challange5.models.Users;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class InvoiceService {
+
+    @Autowired
+    private OrderService orderService;
+
+    public byte[] generateInvoice(UUID userId) {
+        List<Orders> orders = orderService.getOrdersByUserId(userId);
+
+        if (orders == null || orders.isEmpty()) {
+            return new byte[0];
+        }
+
+        Orders order = orders.get(0);
+        Users user = order.getUser();
+
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            Document document = new Document();
+            PdfWriter.getInstance(document, byteArrayOutputStream);
+
+            document.open();
+
+            // Add content to the PDF
+            document.add(new Paragraph("Invoice for Order #" + order.getId()));
+            document.add(new Paragraph("User: " + user.getUsername()));
+            document.add(new Paragraph("Order Details:"));
+
+            for (OrderDetail orderDetail : order.getOrderDetails()) {
+                document.add(new Paragraph(orderDetail.getProduct().getProductName() +
+                        " - Quantity: " + orderDetail.getQuantity() +
+                        " - Total Price: " + orderDetail.getTotalPrice()));
+            }
+
+            document.close();
+
+            return byteArrayOutputStream.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
+    }
 
 
     public byte[] generateReportingMerchant(ReportDTO reportDTO) {
@@ -29,7 +74,7 @@ public class InvoiceService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (document != null && document.isOpen()) {
+            if (document.isOpen()) {
                 document.close();
             }
         }
@@ -41,7 +86,6 @@ public class InvoiceService {
         // Add title
         document.add(new Paragraph("Merchant Report\n\n"));
 
-        // Iterate through reported items
         for (ReportItemDTO reportItemDTO : reportDTO.getReported()) {
             String header = String.format("Minggu Ke: %d\nBulan Ke: %d\nTotal Pendapatan: %.2f\n\n",
                     reportItemDTO.getWeekNumber(), reportItemDTO.getMonthNumber(), reportItemDTO.getTotalIncome());

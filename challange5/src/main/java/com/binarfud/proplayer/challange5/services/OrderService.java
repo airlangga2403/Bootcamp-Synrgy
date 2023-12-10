@@ -37,19 +37,16 @@ public class OrderService {
     public CreateOrderResponseDTO createOrder(UUID userId, CreateOrderRequestDTO createOrderRequestDTO) {
         Users user = userRepository.findById(userId).orElse(null);
 
-        if (user != null) {
+        if (user != null ) {
+
             Orders order = new Orders();
             order.setUser(user);
-
             LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("Asia/Jakarta"));
             Date orderTime = DateUtil.convertToDate(localDateTime);
             order.setOrder_time(orderTime);
-
             order.setDestinationAddress(createOrderRequestDTO.getDestinationAddress());
             order.setCompleted(true);
-
             Orders savedOrder = orderRepository.save(order);
-
             for (CreateOrderRequestDTO.OrderDetailDTO orderDetailDTO : createOrderRequestDTO.getOrderDetails()) {
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setOrder(savedOrder);
@@ -58,16 +55,15 @@ public class OrderService {
                 Products product = productRepository.findById(orderDetailDTO.getProductId()).orElse(null);
                 if (product != null) {
                     orderDetail.setProduct(product);
+
+                    orderDetail.setQuantity(orderDetailDTO.getQuantity());
+                    orderDetail.setTotalPrice(orderDetailDTO.getQuantity() * product.getPrice()); // set Total Price
+
+                    orderDetailRepository.save(orderDetail);
                 } else {
                     return null;
                 }
-
-                orderDetail.setQuantity(orderDetailDTO.getQuantity());
-                orderDetail.setTotalPrice(orderDetailDTO.getTotalPrice());
-
-                orderDetailRepository.save(orderDetail);
             }
-
 
             // Add the saved order to the user's list of orders
             user.getOrders().add(savedOrder);
@@ -82,7 +78,6 @@ public class OrderService {
 
             return responseDTO;
         }
-        // Log Error User Not found
         return null;
     }
 
@@ -104,6 +99,11 @@ public class OrderService {
         return responseDTO;
     }
 
+    // Get order by ID || Return to InvoiceService
+    public List<Orders> getOrdersByUserId(UUID userId) {
+        return orderRepository.findByUserId(userId);
+    }
+
     private List<OrderDetailResponseDTO> mapOrderDetailsToDTO(List<OrderDetail> orderDetails) {
         return orderDetails.stream()
                 .map(detail -> {
@@ -120,6 +120,4 @@ public class OrderService {
                 })
                 .collect(Collectors.toList());
     }
-
-
 }

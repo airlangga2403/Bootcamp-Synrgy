@@ -1,0 +1,27 @@
+eureka:
+  client:
+    register-with-eureka: false
+server:
+  port: 8222
+spring:
+  application:
+    name: binar-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: binarchat-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v1/binarchat/**
+        - id: binarfood-service
+          uri: http://localhost:8070
+          predicates:
+            - Path=/api/v1/binarfood/**
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

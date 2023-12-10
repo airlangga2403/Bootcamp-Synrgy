@@ -1,6 +1,8 @@
 package com.binarfud.proplayer.challange5.controllers;
 
-import com.binarfud.proplayer.challange5.dto.product.response.AddProductRequestDTO;
+import com.binarfud.proplayer.challange5.dto.product.request.AddProductRequestDTO;
+import com.binarfud.proplayer.challange5.dto.product.request.UpdateProductRequestDTO;
+import com.binarfud.proplayer.challange5.dto.product.response.UpdateProductResponseDTO;
 import com.binarfud.proplayer.challange5.models.Products;
 import com.binarfud.proplayer.challange5.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -75,4 +77,23 @@ public class ProductController {
             return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @PutMapping("/{idMerchant}/{idProduct}")
+    public ResponseEntity<?> updateProduct(
+            @PathVariable UUID idMerchant,
+            @PathVariable UUID idProduct,
+            @RequestBody UpdateProductRequestDTO updateProductRequestDTO
+    ) {
+        UpdateProductResponseDTO updateProductResponseDTO = productService.updateProduct(idMerchant, idProduct, updateProductRequestDTO);
+
+        if (updateProductResponseDTO != null) {
+            return ResponseEntity.ok(updateProductResponseDTO);
+        } else {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Invalid Product ID");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
+
+
 }

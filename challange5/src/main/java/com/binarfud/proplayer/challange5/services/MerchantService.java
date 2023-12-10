@@ -5,8 +5,10 @@ import com.binarfud.proplayer.challange5.dto.merchant.request.UpdateMerchantRequ
 import com.binarfud.proplayer.challange5.dto.merchant.response.*;
 import com.binarfud.proplayer.challange5.models.Merchants;
 import com.binarfud.proplayer.challange5.models.Orders;
+import com.binarfud.proplayer.challange5.models.Users;
 import com.binarfud.proplayer.challange5.repository.MerchantRepository;
 import com.binarfud.proplayer.challange5.repository.OrderRepository;
+import com.binarfud.proplayer.challange5.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +24,18 @@ public class MerchantService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public AddMerchantResponseDTO addMerchant(AddMerchantRequestDTO addMerchantDTO) {
-        Merchants merchants = merchantRepository.save(new Merchants(addMerchantDTO.getMerchantName(), addMerchantDTO.getMerchantLocation()));
-        return convertToResponseDTO(merchants, "Merchant added successfully");
+        Optional<Users> users = userRepository.findById(addMerchantDTO.getUserId());
+        if (users.isPresent()) {
+            Merchants merchants = new Merchants(addMerchantDTO.getMerchantName(), addMerchantDTO.getMerchantLocation(), users.get());
+            merchantRepository.save(merchants);
+            return convertToResponseDTO(merchants, "Merchant added successfully");
+        } else {
+            return null;
+        }
     }
 
     public UpdateMerchantResponseDTO updateMerchant(UUID uuid, UpdateMerchantRequestDTO updateMerchantRequestDTO) {
@@ -80,8 +91,6 @@ public class MerchantService {
         reportDTO.setReported(new ArrayList<>(reportData.values()));
         return reportDTO;
     }
-
-
 
 
     private AddMerchantResponseDTO convertToResponseDTO(Merchants merchants, String message) {

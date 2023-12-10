@@ -38,6 +38,7 @@ public class MerchantController {
     public AddMerchantResponseDTO addMerchant(@RequestBody AddMerchantRequestDTO requestDTO) {
         log.info("Received a request to add a merchant.");
         AddMerchantResponseDTO responseDTO = merchantService.addMerchant(requestDTO);
+
         log.info("Response from addMerchant: {}", responseDTO);
         return responseDTO;
     }
