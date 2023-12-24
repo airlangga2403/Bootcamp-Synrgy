@@ -1,0 +1,39 @@
+eureka:
+  client:
+    register-with-eureka: false
+
+server:
+  port: 8222
+
+spring:
+  application:
+    name: binar-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowCredentials: true
+            allowedOriginPatterns: "*"
+            allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
+            allowedMethods: "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+            maxAge: 3628800
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: binarfood-service
+          uri: http://localhost:8070
+          predicates:
+            - Path=/api/v1/binarfood/**
+        - id: binarfood-fcm-service
+          uri: http://localhost:8058
+          predicates:
+            - Path=/api/v1/binar-notification/**
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

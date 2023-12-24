@@ -1,0 +1,45 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  port: 8091
+spring:
+  application:
+    name: binarchat-service
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: depanbelakang944@gmail.com
+    password: bglxmoxhroikcpua
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/chapter6
+    username: postgres
+    password: Bangsat@123
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    driverClassName: org.postgresql.Driver
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
